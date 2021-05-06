@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="tienda_online" match-name="categorias"/>
+  <table-filter match-catalog="tienda_online" match-name="configuracion"/>
+  <table-filter match-catalog="tienda_online" match-name="descuentos"/>
+  <table-filter match-catalog="tienda_online" match-name="detalles_pedido"/>
+  <table-filter match-catalog="tienda_online" match-name="impuestos"/>
+  <table-filter match-catalog="tienda_online" match-name="metodos_pago"/>
+  <table-filter match-catalog="tienda_online" match-name="opciones_menu"/>
+  <table-filter match-catalog="tienda_online" match-name="pedidos"/>
+  <table-filter match-catalog="tienda_online" match-name="productos"/>
+  <table-filter match-catalog="tienda_online" match-name="proveedores"/>
+  <table-filter match-catalog="tienda_online" match-name="roles"/>
+  <table-filter match-catalog="tienda_online" match-name="usuarios"/>
+  <table-filter match-catalog="tienda_online" match-name="valoraciones"/>
+</hibernate-reverse-engineering>
