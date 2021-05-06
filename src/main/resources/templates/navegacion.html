@@ -3,52 +3,31 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="static/css/style.css">
+<style>
+body{
+	background-image: url("/images/bg-Bienvenido.jpg");
+	color: black;
+}
+button{
+	 margin-right:2%;
+}
+</style>
 </head>
 <body>
-	    ${
-		    LocalDateTime fechaActual = LocalDateTime.now();
-		    String mes = MetodosUtiles.mes(fechaActual.getMonthValue());
-	    }
-		
 	<div class="Nav">
-	  	<h1 style="text-align:center;">Bienvenido a la tienda de Arkaitz</h1>
-	  	<table style="margin-left:30%">
-	  	<tr>
-	  		<td>
-	  			<form method="post" action="Bienvenido.jsp">
-	  				<button type="submit" class="btn btn-primary btn-block" name="inicio">Inicio</button>
-	  			</form>
-	  		</td>
-	  		<td>
-			  	<form method="post" action="Registro.jsp">
-			  		<button type="submit" class="btn btn-primary btn-block" name="registrateU">Registrar Usuario</button>
-			  	</form>
-		  	</td>
-		  	<td>
-			  	<form method="post" action="VistaRol.jsp">
-			  		<button type="submit" class="btn btn-primary btn-block" name="registrateR">Registrar Rol</button>
-			  	</form>
-		  	</td>
-		  	<td>
-		  		<form method="post" action="ListaUsuarios">
-			  		<button type="submit" class="btn btn-primary btn-block" name="listaUsuarios">Listar usuarios</button>
-			  	</form>
-		  	</td>
-		  	<td>
-		  		<form method="post" action="ListaRoles">
-			  		<button type="submit" class="btn btn-primary btn-block" name="listaRoles">Listar roles</button>
-			  	</form>
-		  	</td>
-		  	<td>
-		  		<form method="post" action="CerrarSesion">
-		  			<button type="submit" class="btn btn-primary btn-block" name="listaRoles">Cerrar Sesion</button>
-		  		</form>
-		  	</td>
-	  	</tr>
-	  </table>	  
-	  <p style="text-align:center">Bienvenido ${sessionScope.nombreUsuario}. Ultima sesion iniciada: ${fechaActual.getDayOfMonth() + " de " + mes + " de " + fechaActual.getYear()} 
-		a las ${fechaActual.getHour()+":"+fechaActual.getMinute()}</p>
-  	  <p style="text-align:center">Su rol es ${sessionScope.rolUsuario}.</p>
+	  <h1 style="text-align:center;">Bienvenido a la tienda de Arkaitz</h1>
+	  <ul style="margin-left:30%">
+	  	<li>
+			<button type="submit" class="btn btn-primary btn-block" name="inicio"><a th:href="@{bienvenido}">Inicio</a></button>
+			<button type="submit" class="btn btn-primary btn-block" name="registrateU"><a th:href="@{registro}">Registrar Usuario</a></button>
+		  	<button type="submit" class="btn btn-primary btn-block" name="registrateR"><a th:href="@{rol/registro}">Registrar Rol</a></button>
+		  	<button type="submit" class="btn btn-primary btn-block" name="listaUsuarios"><a th:href="@{bienvenido/listaUsuarios}">Listar usuarios</a></button>
+		  	<button type="submit" class="btn btn-primary btn-block" name="listaRoles"><a th:href="@{bienvenido/listaRoles}">Listar roles</a></button>
+		  	<button type="submit" class="btn btn-primary btn-block" name="listaRoles"><a th:href="@{/}">Cerrar Sesion</a></button>
+		</li>
+	  </ul>	  
+	  <p style="text-align:center">Bienvenido <span th:text="${usuario.nombre}"></span>. Ultima sesion iniciada: </p>
+  	  <p style="text-align:center">Su rol es <span th:text="${nombreRol}"></span>.</p>
 	  </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package curso.java.tienda.model;
+package main.java.curso.java.tienda.model;
 
 
 // default package

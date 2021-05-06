@@ -1,4 +1,4 @@
-package curso.java.tienda.utils;
+package main.java.curso.java.tienda.utils;
 
 import java.util.ArrayList;
 import java.util.List;

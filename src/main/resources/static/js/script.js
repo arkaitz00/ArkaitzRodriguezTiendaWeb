@@ -98,57 +98,10 @@ function validarCampos(idInput) {
 				alert("El dni contiene 8 numeros y una letra");
 			}
 		break;
-		
-		case "emailLogin":
-			if (/[a-zA-Z0-9]+@[a-zA-Z0-9]+.+/.test(inp.value)) {
-				inp.style.color = "white";
-				inp.style.backgroundColor = "green";
-				document.getElementById("p1").innerHTML = "";
-			} else {
-				correcto = false;
-				inp.style.color = "black";
-				document.getElementById("p1").innerHTML = "El correo esta mal introducido, ejemplo@gmail.com";
-				document.getElementById("p1").style.color = "white";
-			}
-		break;
-
-		case "passwordLogin":
-			if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/.test(inp.value)){
-				inp.style.color = "white";
-				inp.style.backgroundColor = "green";
-				document.getElementById("p2").innerHTML = "";
-			}else{
-				correcto = false;
-				inp.style.color = "black";
-				document.getElementById("p2").innerHTML = "La contraseña debe tener al entre 8 y 16 caracteres. Minimo una letra mayuscula, una minuscula y un simbolo";
-				document.getElementById("p2").style.color = "white";
-			}
-		break;
 	}
 	if(!correcto){
 		document.getElementById("btnRegistro").disabled=true;
 	}else{
 		document.getElementById("btnRegistro").disabled=false;
-	}
-}
-
-function filtrarMunicipios() {
-	var provincias = document.getElementById("provincias").selectedIndex;
-	var municipios = document.getElementById("municipios");
-	for (var i = 0; i < municipios.length; i++) {
-		var opcion = municipios[i].id;
-		if (provincias < 10) {
-			if (provincias == opcion.substring(0, 1) && opcion < 10000) {
-				municipios[i].classList.remove("hidden");
-			} else {
-				municipios[i].classList.add("hidden");
-			}
-		} else {
-			if (provincias == opcion.substring(0, 2) && opcion >= 10000) {
-				municipios[i].classList.remove("hidden");
-			} else {
-				municipios[i].classList.add("hidden");
-			}
-		}
 	}
 }

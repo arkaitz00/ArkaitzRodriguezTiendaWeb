@@ -1,4 +1,4 @@
-package curso.java.tienda.model;
+package main.java.curso.java.tienda.model;
 
 // default package
 // Generated 04-may-2021 10:46:52 by Hibernate Tools 5.2.12.Final

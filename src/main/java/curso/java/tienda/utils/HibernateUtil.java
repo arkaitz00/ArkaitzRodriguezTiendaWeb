@@ -1,4 +1,4 @@
-package curso.java.tienda.utils;
+package main.java.curso.java.tienda.utils;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

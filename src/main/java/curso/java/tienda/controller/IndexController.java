@@ -1,4 +1,4 @@
-package curso.java.tienda.controller;
+package main.java.curso.java.tienda.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package curso.java.tienda.utils;
+package main.java.curso.java.tienda.utils;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
@@ -7,9 +7,8 @@ public class Cifrado {
 	static PasswordEncryptor encriptado = new BasicPasswordEncryptor();
 	
 	public static String cifrar(String descifrado) {
-		String cifrar = "";
 		
-		cifrar = encriptado.encryptPassword(descifrado);
+		String cifrar = encriptado.encryptPassword(descifrado);
 		
 		return cifrar;
 	}

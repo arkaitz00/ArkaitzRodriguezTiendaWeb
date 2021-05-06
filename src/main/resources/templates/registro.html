@@ -3,22 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Tienda Arkaitz</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="js/script.js"></script>
+<script src="/js/script.js"></script>
+<script type="text/javascript">
+  function cargarMunicipios() {
+	  //console.log(arguments[0]);
+	  window.location = "<%=request.getContextPath()%>?provincia=" + arguments[0];
+  }
+</script>
 <style>
 	/* Made with love by Mutiullah Samim*/
 
 
 
 html,body{
-background-image: url("images/bg-Registro.jpg");
+background-image: url("/images/bg-Registro.jpg");
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -112,50 +119,52 @@ margin-left: 4px;
 				<h3>Registro</h3>
 			</div>
 			<div class="card-body">
-				<form id="registro" method="post" action="AltaUsuario">
+				<form id="registro" method="post" th:action="@{/usuario/registroUsuario}" th:object="${usuario}">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128231;</span>
 						</div>
-						<input id="email" type="email" class="form-control" placeholder="Email" name="email" onblur="validarCampos(this.id)" required>
-					</div>				
+						<input id="email" type="email" class="form-control" placeholder="Email" name="email" th:field="*{email}" onblur="validarCampos(this.id)" required>
+					</div>		
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128273;</span>
 						</div>
-						<input id="password" type="password" class="form-control" placeholder="Contraseña" name="password" onblur="validarCampos(this.id)" required>
+						<input id="password" type="password" class="form-control" placeholder="Contraseña" name="clave" th:field="*{clave}" onblur="validarCampos(this.id)" required>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128100;</span>
 						</div>
-						<input id="usuario" type="text" class="form-control" placeholder="Usuario" name="usuario" onblur="validarCampos(this.id)" required>
+						<input id="usuario" type="text" class="form-control" placeholder="Usuario" name="nombre" th:field="*{nombre}" onblur="validarCampos(this.id)" required>
 					</div>					
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128100;</span>
 						</div>
-						<input id="apellido1" type="text" class="form-control" placeholder="Primer apellido" name="apellido1" onblur="validarCampos(this.id)">
+						<input id="apellido1" type="text" class="form-control" placeholder="Primer apellido" name="apellido1" th:field="*{apellido1}" onblur="validarCampos(this.id)">
 					
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128100;</span>
 						</div>
-						<input id="apellido2" type="text" class="form-control" placeholder="Segundo apellido" name="apellido2" onblur="validarCampos(this.id)">
+						<input id="apellido2" type="text" class="form-control" placeholder="Segundo apellido" name="apellido2" th:field="*{apellido2}" onblur="validarCampos(this.id)">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#127969;</span>
 						</div>
-						<input id="direccion" type="text" class="form-control" placeholder="Direccion" name="direccion" onblur="validarCampos(this.id)">
+						<input id="direccion" type="text" class="form-control" placeholder="Direccion" name="direccion" th:field="*{direccion}" onblur="validarCampos(this.id)">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#127984;</span>
 						</div>
-						<select id="provincias"  name="provincia" class="form-select" aria-label="Default select example" onchange="filtrarMunicipios()">
-							<option value="escogerProvincia" placeholder="" selected>Elige una provincia...</option>	
+						<select id="provincias"  th:field="*{provincia}" class="form-select" aria-label="Default select example" onchange="filtrarMunicipios()">
+							<option value="" selected>Elige una provincia...</option>							
+							<option th:each="provincia : ${provincias}" th:value="${provincia}" th:text="${provincia}"></option>
+								
 						</select>
 					</div>
 					<div class="input-group form-group">
@@ -163,20 +172,20 @@ margin-left: 4px;
 							<span class="input-group-text">&#128725;</span>
 						</div>
 						<select id="municipios" class="form-select" aria-label="Default select example" style="width: 61.8%">
-							<option value="escogerMunicipio" selected>Elige un munipio...</option>
+							<option value="" selected>Elige un munipio...</option>
 						</select>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#9742;</span>
 						</div>
-						<input id="telefono" type="text" class="form-control" placeholder="Numero de telefono" name="telefono" onblur="validarCampos(this.id)">
+						<input id="telefono" type="text" class="form-control" placeholder="Numero de telefono" name="telefono" th:field="*{telefono}" onblur="validarCampos(this.id)">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128179;</span>
 						</div>
-						<input id="dni" type="text" class="form-control" placeholder="Dni" name="dni" onblur="validarCampos(this.id)" required>
+						<input id="dni" type="text" class="form-control" placeholder="Dni" name="dni" th:field="*{dni}" onblur="validarCampos(this.id)" required>
 					</div>
 					<div class="form-group">
 						<input id="btnRegistro" type="submit" value="Registrate" class="btn float-right" style="background-color: #FFC312;">
@@ -185,7 +194,7 @@ margin-left: 4px;
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					¿Ya tienes cuenta? <a href="Login.jsp">Inicia sesion aquí</a>
+					¿Ya tienes cuenta? <a th:href="@{/usuario/alta}">Inicia sesion aquí</a>
 				</div>
 			</div>
 		</div>

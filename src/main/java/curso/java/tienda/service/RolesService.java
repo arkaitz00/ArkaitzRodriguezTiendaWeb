@@ -1,11 +1,12 @@
-package curso.java.tienda.service;
+package main.java.curso.java.tienda.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import curso.java.tienda.model.Roles;
-import curso.java.tienda.repository.RolesRepository;
+import main.java.curso.java.tienda.model.Roles;
+import main.java.curso.java.tienda.repository.RolesRepository;
+
 
 public class RolesService {
 	

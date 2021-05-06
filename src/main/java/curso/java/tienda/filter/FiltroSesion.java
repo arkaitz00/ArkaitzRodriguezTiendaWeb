@@ -1,4 +1,4 @@
-package curso.java.tienda.filter;
+package main.java.curso.java.tienda.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
