@@ -17,7 +17,6 @@ import main.java.curso.java.tienda.model.Usuarios;
 import main.java.curso.java.tienda.repository.UsuariosRepository;
 import main.java.curso.java.tienda.service.UsuariosService;
 import main.java.curso.java.tienda.utils.Cifrado;
-import main.java.curso.java.tienda.utils.DatosJson;
 import main.java.curso.java.tienda.utils.MetodosUtiles;
 
 
@@ -32,28 +31,26 @@ public class UsuarioController {
 	@GetMapping("/alta")
 	public String alta(Model modelo){
 		modelo.addAttribute("usuario", new Usuarios());
-		return "login";
+		return "/usuario/login";
 	}
 	
 	@PostMapping("/altaUsuario")
-	public String altaUsuario(HttpServletRequest request, HttpSession session, Model modelo,  @ModelAttribute Usuarios usuario) {
+	public String altaUsuario(HttpSession session, Model modelo,  @ModelAttribute Usuarios usuario) {
 		
-		String email = request.getParameter("email");
-		String password = request.getParameter("clave");
-		usuario = us.devolverUsuarioEmail(email);
+		session.setAttribute("usuario", usuario);
+		Usuarios u = us.devolverUsuarioEmail(usuario.getEmail());
 		if(usuario != null){			
-			if(Cifrado.comprobarCifrado(password, usuario.getClave())) {
+			if(Cifrado.comprobarCifrado(usuario.getClave(), u.getClave())) {
 				return "redirect:/usuario/bienvenido";
 			}
 		}
-		modelo.addAttribute("oUsuario", usuario);
-		return "login";
+		return "/usuario/login";
 	}
 	
 	@GetMapping("/registro")
 	public String registro(Model modelo){
 		modelo.addAttribute("usuario", new Usuarios());
-		return "registro";
+		return "/usuario/registro";
 	}
 	
 	@PostMapping("/registroUsuario")
@@ -65,27 +62,28 @@ public class UsuarioController {
 		String apellido1 = request.getParameter("apellido1");
 		String apellido2 = request.getParameter("apellido2");
 		String direccion = request.getParameter("direccion");
-		String localidad = request.getParameter("municipio");
+		String municipio = request.getParameter("municipio");
 		String provincia = request.getParameter("provincia");
 		String telefono = request.getParameter("telefono");
 		String dni = request.getParameter("dni");
 		
 		String cifrado = Cifrado.cifrar(password);
-		usuario = new Usuarios(3, email, cifrado, nombre, apellido1, apellido2, direccion, localidad, provincia, telefono, dni);
-		if(us.crearUsuario(usuario)) {
+		usuario = us.crearUsuario(3, email, cifrado, nombre, apellido1, apellido2, direccion, municipio, provincia, telefono, dni);
+		if(usuario != null) {
+			session.setAttribute("usuario", usuario);
 			return "redirect:/usuario/bienvenido";
 		}
 		modelo.addAttribute("usuario", usuario);
-		return "registro";
+		return "/usuario/registro";
 	}
 	
 	@GetMapping("/bienvenido")
-	public String bienvenido(HttpSession session, HttpServletRequest request, Model modelo) {
-		String email = request.getParameter("email");
-		Usuarios usuario = us.devolverUsuarioEmail(email);
-		modelo.addAttribute("nombreUsuario", session.getAttribute("nombre"));
-		//String nombreRol = MetodosUtiles.nombreRol(usuario.getIdRol());
-		modelo.addAttribute("nombreRol", session.getAttribute("idRol"));
-		return "bienvenido";
+	public String bienvenido(Model modelo, HttpSession session) {
+		
+		Usuarios u = (Usuarios) session.getAttribute("usuario");
+		Usuarios usuario = us.devolverUsuarioEmail(u.getEmail());
+		modelo.addAttribute("usuario", usuario);
+		
+		return "composicion/bienvenido";
 	}
 }
