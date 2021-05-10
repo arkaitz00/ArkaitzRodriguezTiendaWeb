@@ -3,11 +3,12 @@ package main.java.curso.java.tienda.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import main.java.curso.java.tienda.model.Roles;
 import main.java.curso.java.tienda.repository.RolesRepository;
 
-
+@Service
 public class RolesService {
 	
 	static final Logger logger = LogManager.getLogger(RolesService.class);

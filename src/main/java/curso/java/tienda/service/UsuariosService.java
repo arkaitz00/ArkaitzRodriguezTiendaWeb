@@ -18,14 +18,15 @@ public class UsuariosService {
 	@Autowired
 	UsuariosRepository ur;
 	
-	public boolean crearUsuario(Usuarios u) {
-		if(!existeUsuarioDni(u.getDni())) {
+	public Usuarios crearUsuario(int idRol, String email, String clave, String nombre, String apellido1, String apellido2, String direccion, String municipio, String provincia, String telefono, String dni) {		
+		if(!existeUsuarioDni(dni)) {
+			Usuarios u = new Usuarios(idRol, email, clave, nombre, apellido1, apellido2, direccion, municipio, provincia, telefono, dni);
 			logger.info("Usuario creado");
 			ur.save(u);
-			return true;
+			return u;
 		}
 		logger.warn("El usuario ya existe");
-		return false;
+		return null;
 	}
 	
 	public boolean existeUsuarioDni(String dni) {
