@@ -1,20 +1,25 @@
 package main.java.curso.java.tienda.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import main.java.curso.java.tienda.model.Usuarios;
-import main.java.curso.java.tienda.repository.UsuariosRepository;
 import main.java.curso.java.tienda.service.UsuariosService;
 import main.java.curso.java.tienda.utils.Cifrado;
 import main.java.curso.java.tienda.utils.MetodosUtiles;
@@ -41,10 +46,13 @@ public class UsuarioController {
 		Usuarios u = us.devolverUsuarioEmail(usuario.getEmail());
 		if(usuario != null){			
 			if(Cifrado.comprobarCifrado(usuario.getClave(), u.getClave())) {
+				String nombreRol = MetodosUtiles.nombreRol(u.getIdRol());
+				session.setAttribute("nombreRol", nombreRol);
 				return "redirect:/usuario/bienvenido";
 			}
 		}
-		return "/usuario/login";
+		modelo.addAttribute("usuario", new Usuarios());
+		return "usuario/login";
 	}
 	
 	@GetMapping("/registro")
@@ -79,31 +87,49 @@ public class UsuarioController {
 	
 	@GetMapping("/editar")
 	public String editar(HttpSession session){
-		session.getAttribute("usuario");
+		
+ 		Usuarios usuario = (Usuarios) session.getAttribute("usuario");
+ 		
+		session.setAttribute("usuario", usuario);
+		
 		return "/usuario/editar";
 	}
 	
 	@PostMapping("/editarPerfil")
-	public String editarPerfil(HttpServletRequest request, HttpSession session, Model modelo,  @ModelAttribute Usuarios usuario) {
+	public String editarPerfil(@Valid @ModelAttribute Usuarios usuario, BindingResult bindingResult) {
 		
-		String email = request.getParameter("email");
-		String nombre = request.getParameter("nombre");
-		String apellido1 = request.getParameter("apellido1");
-		String apellido2 = request.getParameter("apellido2");
-		String telefono = request.getParameter("telefono");
-		
-		us.editarUsuario(usuario, email, nombre, apellido1, apellido2, telefono);
-		
-		return "redirect:/usuario/bienvenido";
+		if(bindingResult.hasErrors()) {
+			return "/editarPerfil";
+		}else {
+			return "redirect:/usuario/bienvenido";
+		}		
 	}
 	
 	@GetMapping("/bienvenido")
 	public String bienvenido(Model modelo, HttpSession session) {
-		
 		Usuarios u = (Usuarios) session.getAttribute("usuario");
-		Usuarios usuario = us.devolverUsuarioEmail(u.getEmail());
-		modelo.addAttribute("usuario", usuario);
+		if(u != null) {
 		
-		return "composicion/bienvenido";
+			Usuarios usuario = us.devolverUsuarioEmail(u.getEmail());
+			modelo.addAttribute("usuario", usuario);
+			
+			return "composicion/bienvenido";
+		
+		}else {
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("/listarUsuarios")
+	public String listarUsuarios(HttpSession session){
+		List<Usuarios> lista = us.listadoUsuarios();
+		session.setAttribute("listaUsuarios", lista);
+		return "/usuario/listarUsuarios";
+	}
+	
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion(HttpSession session){
+		session.setAttribute("usuario", "");
+		return "redirect:/";
 	}
 }

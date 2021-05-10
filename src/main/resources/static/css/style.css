@@ -12,6 +12,16 @@
      line-height: 1.80857;
      font-weight: normal;
 }
+.nav { grid-area: nav; }
+
+.section { grid-area: section; }
+
+.aside { grid-area: aside; }
+
+.article { grid-area: article; }
+
+.footer { grid-area: footer; }
+
  a {
      color: #1f1f1f;
      text-decoration: none !important;

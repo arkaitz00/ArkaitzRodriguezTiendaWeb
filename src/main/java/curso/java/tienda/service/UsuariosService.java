@@ -1,5 +1,7 @@
 package main.java.curso.java.tienda.service;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 
 import org.apache.logging.log4j.Logger;
@@ -29,6 +31,10 @@ public class UsuariosService {
 		return null;
 	}
 	
+	public void guardarUsuario(Usuarios u) {
+		ur.save(u);
+	}
+	
 	public boolean existeUsuarioDni(String dni) {
 		if(ur.findByDni(dni) != null) {
 			logger.warn("El usuario existe");
@@ -48,6 +54,16 @@ public class UsuariosService {
 		return null;
 	}
 	
+	public Usuarios devolverUsuarioId(int id) {
+		Usuarios u = ur.findById(id);
+		if(u != null) {
+			logger.info("El usuario con el id indicado existe");
+			return u;
+		}
+		logger.warn("El usuario no existe");
+		return null;
+	}
+	
 	public void borrarUsuario(String dni) {
 		if(existeUsuarioDni(dni)) {
 			ur.deleteByDni(dni);
@@ -57,11 +73,20 @@ public class UsuariosService {
 		}
 	}
 	
-	public void editarUsuario(Usuarios u, String email, String nombre, String apellido1, String apellido2, String telefono) {
-		u.setEmail(email);
-		u.setNombre(nombre);
-		u.setApellido1(apellido1);
-		u.setApellido2(apellido2);
-		u.setTelefono(telefono);
+	public void editarUsuario(Usuarios u) {
+		if(u != null) {			
+			guardarUsuario(u);
+			logger.info("El contacto se ha editado correctamente");
+		}else {
+			logger.info("El contacto no se ha podido editar");
+		}
+	}
+	
+	public List<Usuarios> listadoUsuarios(){
+		return ur.findAll();
+	}
+	
+	public List<Usuarios> buscador(String cadena){
+		return ur.buscarPorNombreOApellidos(cadena);
 	}
 }

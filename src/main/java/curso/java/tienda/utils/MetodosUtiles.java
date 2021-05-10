@@ -23,9 +23,11 @@ public class MetodosUtiles {
 			case 3:
 				nombreRol = "Cliente";
 			break;
-			case 4:
-				nombreRol = "Gerente";
-			break;
+		}
+		if(nombreRol != "") {
+			logger.info("El rol es "+nombreRol);
+		}else {
+			logger.warn("No se ha podido seleccionar ningun rol");
 		}
 		return nombreRol;
 	}

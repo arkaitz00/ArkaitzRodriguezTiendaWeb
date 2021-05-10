@@ -9,7 +9,11 @@
 	<div class="grid-container">
 	 	<div class="Nav" th:insert="@{/composicion/navegacion.html}"></div>
 	  	<div class="Aside"></div>
-	  	<div class="Section"></div>
+	  	<div class="Section" style="margin-left: 25%; padding-top: 2%;">
+	  		<h1>Bienvenido <span th:text="${usuario.nombre}"></span></h1>
+	  		<h2>Su rol es: <span th:text="${session.nombreRol}"></span></h2>
+	  		<h3>Su correo es: <span th:text="${usuario.email}"></span></h3>
+	  	</div>
 	  	<div class="Article"></div>
 	  	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
 	</div>

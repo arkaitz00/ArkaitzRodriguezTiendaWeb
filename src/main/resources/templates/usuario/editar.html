@@ -13,12 +13,6 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/script.js"></script>
-<script type="text/javascript">
-  function cargarMunicipios() {
-	  //console.log(arguments[0]);
-	  window.location = "<%=request.getContextPath()%>?provincia=" + arguments[0];
-  }
-</script>
 <style>
 	/* Made with love by Mutiullah Samim*/
 
@@ -112,6 +106,7 @@ margin-left: 4px;
 </style>
 </head>	
 <body>
+<p>Hola</p>
 	<div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card" style="height:450px">
@@ -120,6 +115,9 @@ margin-left: 4px;
 			</div>
 			<div class="card-body">
 				<form id="registro" method="post" th:action="@{/usuario/editarPerfil}" th:object="${usuario}">
+					<div class="input-group form-group">
+						<input th:field="*{session.usuario.id}">
+					</div>	
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128231;</span>
