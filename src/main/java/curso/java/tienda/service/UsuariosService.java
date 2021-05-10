@@ -48,15 +48,6 @@ public class UsuariosService {
 		return null;
 	}
 	
-	/*public boolean existeUsuario(Usuarios u) {
-		if(ur.findByUsuarios(u)) {
-			logger.info("El objeto usuario existe");
-			return true;
-		}
-		logger.warn("El objeo usuario no existe");
-		return false;
-	}*/
-	
 	public void borrarUsuario(String dni) {
 		if(existeUsuarioDni(dni)) {
 			ur.deleteByDni(dni);
@@ -64,5 +55,13 @@ public class UsuariosService {
 		}else {
 			logger.warn("El usuario no se ha podido borrar, porque no existe");
 		}
+	}
+	
+	public void editarUsuario(Usuarios u, String email, String nombre, String apellido1, String apellido2, String telefono) {
+		u.setEmail(email);
+		u.setNombre(nombre);
+		u.setApellido1(apellido1);
+		u.setApellido2(apellido2);
+		u.setTelefono(telefono);
 	}
 }

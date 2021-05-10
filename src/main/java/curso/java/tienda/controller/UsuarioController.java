@@ -77,6 +77,26 @@ public class UsuarioController {
 		return "/usuario/registro";
 	}
 	
+	@GetMapping("/editar")
+	public String editar(HttpSession session){
+		session.getAttribute("usuario");
+		return "/usuario/editar";
+	}
+	
+	@PostMapping("/editarPerfil")
+	public String editarPerfil(HttpServletRequest request, HttpSession session, Model modelo,  @ModelAttribute Usuarios usuario) {
+		
+		String email = request.getParameter("email");
+		String nombre = request.getParameter("nombre");
+		String apellido1 = request.getParameter("apellido1");
+		String apellido2 = request.getParameter("apellido2");
+		String telefono = request.getParameter("telefono");
+		
+		us.editarUsuario(usuario, email, nombre, apellido1, apellido2, telefono);
+		
+		return "redirect:/usuario/bienvenido";
+	}
+	
 	@GetMapping("/bienvenido")
 	public String bienvenido(Model modelo, HttpSession session) {
 		
