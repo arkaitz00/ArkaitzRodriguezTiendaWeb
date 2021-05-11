@@ -1,21 +1,16 @@
 package main.java.curso.java.tienda.controller;
 
-import java.net.URI;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -86,27 +81,25 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/editar")
-	public String editar(HttpSession session){
+	public String editar(HttpSession session, Model modelo){
 		
  		Usuarios usuario = (Usuarios) session.getAttribute("usuario");
- 		
-		session.setAttribute("usuario", usuario);
-		
+ 		usuario = us.devolverUsuarioEmail(usuario.getEmail());
+
+		modelo.addAttribute("usuario", usuario);
 		return "/usuario/editar";
 	}
 	
 	@PostMapping("/editarPerfil")
-	public String editarPerfil(@Valid @ModelAttribute Usuarios usuario, BindingResult bindingResult) {
+	public String editarPerfil(/*@Valid*/ @ModelAttribute Usuarios usuario/*, BindingResult bindingResult*/) {
 		
-		if(bindingResult.hasErrors()) {
-			return "/editarPerfil";
-		}else {
-			return "redirect:/usuario/bienvenido";
-		}		
+		us.editarUsuario(usuario);
+		return "redirect:/usuario/bienvenido";
 	}
 	
 	@GetMapping("/bienvenido")
 	public String bienvenido(Model modelo, HttpSession session) {
+		//if(session.)
 		Usuarios u = (Usuarios) session.getAttribute("usuario");
 		if(u != null) {
 		

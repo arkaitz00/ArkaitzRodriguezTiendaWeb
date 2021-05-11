@@ -51,12 +51,12 @@
       <div class="collapse navbar-collapse" id="navbarsExampleXxl">
         <ul style=" width: 100%; margin-left: 25%;" class="navbar-nav me-auto mb-auto mb-auto">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#" style="margin-top: 18%;">Inicio</a>
+            <a class="nav-link" aria-current="page" th:href="@{/usuario/bienvenido}" style="margin-top: 18%;">Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  th:if="${usuario.idRol}==1">
             <a class="nav-link" th:href="@{/rol/listarRoles}">Listar Roles</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  th:if="${usuario.idRol}==1">
             <a class="nav-link" aria-current="page" th:href="@{/usuario/listarUsuarios}">Listar Usuario</a>
           </li>
            <form class="d-flex">

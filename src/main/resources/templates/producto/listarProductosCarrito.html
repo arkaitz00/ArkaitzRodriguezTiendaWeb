@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+table{
+	width: 100%;
+	text-align: center;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	padding-left: 2%;
+}
+
+.card {
+	margin-top: 1%;
+	margin-left: 13%;
+}
+</style>
+</head>
+<body>
+	<div class="grid-container">
+		<header style="position: inherit;">
+			<div class="container-fluid" style="width:100%">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="full">
+							<a class="logo" href="/"><img src="../../images/logo.png" /></a>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="full">
+							<div class="right_header_info">
+								<ul>
+									<li class="dinone"></li>
+									<li class="dinone"></li>
+									<li class="dinone"></li>
+									<li style="margin-top: -20%;" class="button_user"><a class="button" th:href="@{/usuario/alta}">Login</a><a class="button" th:href="@{/usuario/registro}">Register</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+	<div class="Aside"></div>
+	<div class="Section">
+	<table>
+		<tr>
+			<th>Componente</th>
+			<th>Precio</th>
+			<th>Unidades</th>
+		</tr>
+		<tr th:each="producto : ${session.carrito}">
+			<td><h5 th:text="${producto.nombre}"></h5></td>
+		  	<td th:text="${producto.descripcion}"></td>
+		  	<td th:text="${producto.precio}+'€'"></td>
+		</tr>
+		<tr>
+			<th colspan="3" th:text="'Total: '+${session.totalPrecio}+'€'">0€</th>
+			<a class="button" th:href="@{/usuario/alta}">Comprar</a>
+		</tr>
+	</table>
+	<div class="Article"></div>
+	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+	</div>
+</body>
+</html>

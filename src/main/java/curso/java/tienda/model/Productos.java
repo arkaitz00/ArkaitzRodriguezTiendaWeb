@@ -29,6 +29,7 @@ public class Productos implements java.io.Serializable {
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private Float impuesto;
+	private String imagen;
 
 	public Productos() {
 	}
@@ -118,7 +119,7 @@ public class Productos implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_baja", nullable = false, length = 19)
+	@Column(name = "fecha_baja", nullable = true)
 	public Date getFechaBaja() {
 		return this.fechaBaja;
 	}
@@ -134,6 +135,15 @@ public class Productos implements java.io.Serializable {
 
 	public void setImpuesto(Float impuesto) {
 		this.impuesto = impuesto;
+	}
+
+	@Column(name = "imagen")
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 }

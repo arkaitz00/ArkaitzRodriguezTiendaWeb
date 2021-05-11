@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div class="grid-container">
+		<header style="position: inherit;">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="full">
+							<a class="logo" href="/"><img src="../images/logo.png" /></a>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="full">
+							<div class="right_header_info">
+								<ul>
+									<li class="dinone"></li>
+									<li class="dinone"></li>
+									<li class="dinone"></li>
+									<li style="margin-top: -17%;" class="button_user"><a
+										class="button active" th:href="@{/usuario/alta}">Login</a><a
+										class="button" th:href="@{/usuario/registro}">Register</a><a
+										class="button" th:href="@{/producto/carrito}">&#128722;</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+	<div class="Aside"></div>
+	<div class="Section"
+		style="width: 100%; display: inline-flex; flex-wrap: wrap; align-items: flex-end;">
+		<table style="text-align: center; width: 100%;">
+			<tr style="width: 25%;" th:each="producto : ${listaProductos}">
+				<div class="card" style="width: 18rem;">
+					<img th:src="'../images/productos/'+${producto.imagen}"
+						class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${producto.nombre}"></h5>
+						<p class="card-text" th:text="${producto.descripcion}"></p>
+					</div>
+					<div class="card-body">
+						<p>
+							<span th:if="${producto.stock==0}"> 
+								<span style="text-align: left; color: red;">Fuera de stock</span>
+							</span> 
+							<span th:if="${producto.stock!=0}"> 
+								<span style="text-align: right; margin-left: 50%;" th:text="${producto.precio}+'€'"></span>								
+								<button type="submit"><a th:href="@{/producto/carrito/}+${producto.id}">Añadir al carrito</a></button>								
+							</span>
+						</p>
+
+					</div>
+				</div>
+			</tr>
+		</table>
+	</div>
+	<div class="Article"></div>
+	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+	</div>
+</body>
+</html>
