@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div th:insert="@{/composicion/header.html}"></div>
+	<div class="Aside"></div>
+	<div class="Section"style="width: 100%; margin-top:8%; display: inline-flex; flex-wrap: wrap;">				
+	  <div class="row g-0">
+	    <div class="col-md-4">
+	      <img th:src="'../images/productos/'+${session.producto.imagen}">
+	    </div>
+	    <div class="col-md-8">
+	      <div class="card-body">
+	        <h5 class="card-title" th:text="${session.producto.nombre}"></h5>
+	        <p class="card-text" th:text="${session.producto.descripcion}"></p>	        
+     			<p>
+     				<span th:if="${session.producto.stock!=0}"}>
+						<span th:text="${session.producto.precio}+'€'"></span>
+					</span>		
+					<span th:if="${session.producto.stock==0}"> 
+						<span style="text-align: left; color: red;">Fuera de stock</span>
+					</span>					
+				</p>
+				<p>
+					<span th:if="${session.producto.stock!=0}"> 															
+						<button type="button" class="btn btn-light"><a th:href="@{/producto/carrito/}+${session.producto.id}">Añadir al carrito</a></button>															
+					</span>
+				</p>
+	        <button type="button" class="btn btn-light"><a th:href="@{/producto/listaProductos}">Volver</a></button>
+	      </div>
+	    </div>
+	  </div>
+</div>
+	</div>
+	<div class="Article"></div>
+	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+</body>
+</html>

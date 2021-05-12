@@ -54,12 +54,22 @@
 
                 <ul class="list-unstyled components">
 
-                    <li class="active">
+                    <li class="">
                         <a href="/">Inicio</a>
                     </li>
                     <li>
                         <a th:href="@{producto/listaProductos}">Productos</a>
                     </li>
+                    <span th:if="${session.usuario != null}">
+                    	<span th:if="${session.usuario.idRol==1}">
+		                    <li>		                    
+		                    	<a th:href="@{usuario/listarUsuarios}">Lista Usuarios</a>
+		                    </li>
+	                    </span>
+	                    <li>
+	                    	<a class="button" th:href="@{/usuario/cerrarSesion}">Cerrar Sesion</a>
+	                    </li>
+                    </span>
                 </ul>
 
             </nav>
@@ -81,8 +91,14 @@
                             <ul>
                                 <li class="dinone"></li>
                                 <li class="dinone"></li>
-                                <li class="dinone"></li>
-                                <li class="button_user"><a class="button active" th:href="@{/usuario/alta}">Login</a><a class="button" th:href="@{/usuario/registro}">Register</a></li>
+                                <li class="dinone"></li>                                
+                                <li class="button_user" th:if="${session.usuario == null}">
+                                	<a class="button" th:href="@{/usuario/alta}">Login</a>
+                                	<a class="button" th:href="@{/usuario/registro}">Register</a>
+                                </li>
+                                <li class="button_user" th:if="${session.usuario != null}">
+                                	<p>Bienvenido <span th:text="${session.usuario.nombre}"></span></p>                                	
+                                </li>
                                 <li>
                                     <button type="button" id="sidebarCollapse">
                                         <img src="images/menu_icon.png" alt="#">

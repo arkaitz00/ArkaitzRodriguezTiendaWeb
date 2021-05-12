@@ -22,4 +22,21 @@ public class ProductoService {
 		List<Productos> listado = pr.listarProductos();
 		return listado;
 	}
+	
+	public List<Productos> vaciarCarrito(List<Productos> carrito){
+		for (int i = 0; i < carrito.size(); i++) {
+			carrito.remove(i);
+		}
+		return carrito;
+	}
+	
+	public List<Productos> borrarElementoCarrito(List<Productos> carrito, int id){
+		Productos producto = buscarPorId(id);
+		for (int i = 0; i < carrito.size(); i++) {
+			if(carrito.get(i).getId() == id) {
+				carrito.remove(i);
+			}
+		}
+		return carrito;
+	}
 }

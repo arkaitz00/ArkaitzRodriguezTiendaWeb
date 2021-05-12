@@ -42,8 +42,9 @@ public class UsuarioController {
 		if(usuario != null){			
 			if(Cifrado.comprobarCifrado(usuario.getClave(), u.getClave())) {
 				String nombreRol = MetodosUtiles.nombreRol(u.getIdRol());
+				session.setAttribute("usuario", u);
 				session.setAttribute("nombreRol", nombreRol);
-				return "redirect:/usuario/bienvenido";
+				return "redirect:/";
 			}
 		}
 		modelo.addAttribute("usuario", new Usuarios());
@@ -91,7 +92,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/editarPerfil")
-	public String editarPerfil(/*@Valid*/ @ModelAttribute Usuarios usuario/*, BindingResult bindingResult*/) {
+	public String editarPerfil(@ModelAttribute Usuarios usuario) {
 		
 		us.editarUsuario(usuario);
 		return "redirect:/usuario/bienvenido";
@@ -122,7 +123,7 @@ public class UsuarioController {
 	
 	@GetMapping("/cerrarSesion")
 	public String cerrarSesion(HttpSession session){
-		session.setAttribute("usuario", "");
+		session.setAttribute("usuario", null);
 		return "redirect:/";
 	}
 }

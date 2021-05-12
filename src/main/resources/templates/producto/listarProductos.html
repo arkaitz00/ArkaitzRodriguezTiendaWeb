@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Tienda Arkaitz</title>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
 <style>
 body {
 	padding: 0;
@@ -25,37 +26,10 @@ tr {
 </style>
 </head>
 <body>
-	<div class="grid-container">
-		<header style="position: inherit;">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-3">
-						<div class="full">
-							<a class="logo" href="/"><img src="../images/logo.png" /></a>
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="full">
-							<div class="right_header_info">
-								<ul>
-									<li class="dinone"></li>
-									<li class="dinone"></li>
-									<li class="dinone"></li>
-									<li style="margin-top: -17%;" class="button_user"><a
-										class="button active" th:href="@{/usuario/alta}">Login</a><a
-										class="button" th:href="@{/usuario/registro}">Register</a><a
-										class="button" th:href="@{/producto/carrito}">&#128722;</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
-	</div>
+	<div th:insert="@{/composicion/header.html}"></div>
 	<div class="Aside"></div>
 	<div class="Section"
-		style="width: 100%; display: inline-flex; flex-wrap: wrap; align-items: flex-end;">
+		style="width: 100%; margin-top:8%; display: inline-flex; flex-wrap: wrap;">
 		<table style="text-align: center; width: 100%;">
 			<tr style="width: 25%;" th:each="producto : ${listaProductos}">
 				<div class="card" style="width: 18rem;">
@@ -67,15 +41,21 @@ tr {
 					</div>
 					<div class="card-body">
 						<p>
-							<span th:if="${producto.stock==0}"> 
-								<span style="text-align: left; color: red;">Fuera de stock</span>
-							</span> 
-							<span th:if="${producto.stock!=0}"> 
-								<span style="text-align: right; margin-left: 50%;" th:text="${producto.precio}+'€'"></span>								
-								<button type="submit"><a th:href="@{/producto/carrito/}+${producto.id}">Añadir al carrito</a></button>								
+							<span>
+								<button type="button" class="btn btn-light"><a th:href="@{/producto/detalleProducto/}+${producto.id}">Detalles</a></button>
+							</span>  
+							<span th:if="${producto.stock!=0}"> 															
+								<button type="button" class="btn btn-light"><a th:href="@{/producto/carrito/}+${producto.id}">Añadir al carrito</a></button>															
 							</span>
 						</p>
-
+						<p>
+							<span th:if="${producto.stock!=0}"}>
+								<span style="text-align: right; margin-left: 75%;" th:text="${producto.precio}+'€'"></span>
+							</span>		
+							<span th:if="${producto.stock==0}"> 
+								<span style="text-align: left; margin-left: 60%; color: red;">Fuera de stock</span>
+							</span>
+						</p>
 					</div>
 				</div>
 			</tr>

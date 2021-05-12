@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2021 a las 00:30:02
+-- Tiempo de generación: 12-05-2021 a las 14:07:03
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -18,8 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tienda`
+-- Base de datos: `tienda_arkaitz_rodriguez_martinez`
 --
+CREATE DATABASE IF NOT EXISTS `tienda_arkaitz_rodriguez_martinez` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tienda_arkaitz_rodriguez_martinez`;
 
 -- --------------------------------------------------------
 
@@ -32,6 +34,16 @@ CREATE TABLE `categorias` (
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'Tarjeta Grafica', 'Categoria de las tarjetas graficas'),
+(2, 'Procesador', 'Categoria de los procesadores'),
+(3, 'Ordenador sobremesa', 'Categoria de los ordenadores sobremesa'),
+(4, 'Ordenador portatil', 'Categoria de los ordenadores portatiles');
 
 -- --------------------------------------------------------
 
@@ -98,6 +110,14 @@ CREATE TABLE `metodos_pago` (
   `metodo_pago` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `metodos_pago`
+--
+
+INSERT INTO `metodos_pago` (`id`, `metodo_pago`) VALUES
+(1, 'Tarjeta'),
+(2, 'Paypal');
+
 -- --------------------------------------------------------
 
 --
@@ -153,10 +173,22 @@ CREATE TABLE `productos` (
   `descripcion` varchar(255) DEFAULT NULL,
   `precio` double DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
-  `fecha_alta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `fecha_baja` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `impuesto` float DEFAULT NULL
+  `fecha_alta` timestamp NULL DEFAULT current_timestamp(),
+  `fecha_baja` timestamp NULL DEFAULT NULL,
+  `impuesto` float DEFAULT NULL,
+  `imagen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_alta`, `fecha_baja`, `impuesto`, `imagen`) VALUES
+(1, 1, 'Radeon RX 6800', 'Tarjeta grafica ASRock Radeon RX 6800', 1049.99, 25, '2021-05-11 09:25:41', NULL, 21, 'radeon6800RX.jpg'),
+(2, 1, 'Gigabyte RTX 2060', 'Tarjeta grafica Gigabyte GeForce RTX 2060 Overclock', 575.99, 72, '2021-05-11 11:14:41', NULL, 21, 'gigabyte2060RTX-OC.jpg'),
+(3, 2, 'Intel Core i9-11900K', 'Procesador i9-11900K 3.5Ghz', 499.99, 0, '2021-05-11 11:16:57', NULL, 21, 'i9-11900k.jpg'),
+(4, 4, 'Asus Rog Strix SCAR 17', 'Ordenador portatil Asus Rog Strix SCAR 17 para gaming', 2999.99, 2, '2021-05-11 11:32:31', NULL, 21, 'asusrogSCAR17.jpg'),
+(5, 3, 'PcCom Silver', 'Ordenador de sobremesa PcCom Silver AMD Ryzen 5', 1250, 30, '2021-05-11 11:34:44', NULL, 21, 'pcsilverRyzen5.jpg');
 
 -- --------------------------------------------------------
 
@@ -221,8 +253,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `id_rol`, `email`, `clave`, `nombre`, `apellido1`, `apellido2`, `direccion`, `localidad`, `provincia`, `telefono`, `dni`) VALUES
-(1, 1, 'admin@tiendaonline.es', 'kXJU3u6LdLNLXtrOS3elDbhV6jKCAGDV', 'Administrador', '', '', '', NULL, '', '', '12345678Z'),
-(2, 3, 'arkaitzrodriguez19@gmail.com', 'qJtHHqHxM9X+QanZ6PQLoUDvz+01giLa', 'Arkaitz', NULL, NULL, NULL, NULL, NULL, NULL, '30365053Q');
+(1, 1, 'admin@tiendaonline.es', 'AQhZcUUhh5JsZ9R3aTNtU3T9CWcza31i', 'Administrador', '', '', '', NULL, '', '', '12345678Z'),
+(2, 2, 'arkaitzrodriguez19@gmail.com', 'LGZtv535rfVSQ/jhV1kmUqUmttzXFpRu', 'Arkaitz', '', '', '', NULL, '', '', '30365053Q'),
+(3, 3, 'prueba1@gmail.com', 'ECtYV1Yz6IQqOb3xuZDfvW8P6jLh/nnh', 'Prueba', '', '', '', NULL, '', '', '17451033J');
 
 -- --------------------------------------------------------
 
@@ -328,7 +361,7 @@ ALTER TABLE `valoraciones`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -358,7 +391,7 @@ ALTER TABLE `impuestos`
 -- AUTO_INCREMENT de la tabla `metodos_pago`
 --
 ALTER TABLE `metodos_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones_menu`
@@ -376,7 +409,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -394,7 +427,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `valoraciones`
