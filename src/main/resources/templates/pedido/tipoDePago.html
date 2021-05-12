@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div th:insert="@{/composicion/header.html}"></div>
+	<div style="display: flex;">
+		<div class="card border-light mb-3" style="margin-left: 33%; margin-top: 8%;">
+		  <div class="card-header bg-transparent border-dark">Metodo de pago</div>
+		  <div class="card-body text-dark">
+		    <h5 class="card-title">Seleccione método de pago</h5>
+		    <p class="card-text">
+		    	<form method="post" th:action="@{/compra/inicioPago}" th:object="${metodoPago}">
+			    	<select class="form-select" name="MetodoDePago">
+			    		<span th:each="metodo: ${session.pago}">
+					 		<option value="${metodo.id}" th:text="${metodo.metodoPago}"></option>					 		
+					  	</span>
+					</select>
+			    	 <button type="sumbit" class="btn btn-light">Pagar</button> 
+		    	</form>
+		    </p>
+		    
+		  </div>
+		</div>
+	</div>
+	<div th:insert="@{composicion/footer.html}"></div>
+</body>
+</html>
