@@ -33,16 +33,15 @@ tr {
 		  <div class="card-body text-dark">
 		    <h5 class="card-title">Seleccione método de pago</h5>
 		    <p class="card-text">
-		    	<form method="post" th:action="@{/compra/inicioPago}" th:object="${metodoPago}">
-			    	<select class="form-select" name="MetodoDePago">
+		    	<form method="post" th:action="@{/compra/inicioPago}">
+			    	<select class="form-select" name="metodoPago">
 			    		<span th:each="metodo: ${session.pago}">
-					 		<option value="${metodo.id}" th:text="${metodo.metodoPago}"></option>					 		
+					 		<option th:value="${metodo.metodoPago}" th:text="${metodo.metodoPago}"></option>					 		
 					  	</span>
 					</select>
-			    	 <button type="sumbit" class="btn btn-light">Pagar</button> 
+					<button type="sumbit" class="btn btn-dark" style="margin-top: 5%;">Pagar</button> 
 		    	</form>
-		    </p>
-		    
+		  	</p>		    
 		  </div>
 		</div>
 	</div>

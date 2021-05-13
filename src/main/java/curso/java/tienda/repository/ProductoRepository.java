@@ -14,4 +14,7 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
 
 	@Query("select p from Productos p")
 	List<Productos> listarProductos();
+	
+	@Query("select p from Productos p where id_categoria = ?1")
+	List<Productos> listarProductosCategoria(int id);
 }

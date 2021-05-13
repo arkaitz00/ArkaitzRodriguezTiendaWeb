@@ -45,6 +45,9 @@ body{
 										Bienvenido <span th:text="${session.usuario.nombre}"></span>
 									</span>
 								</li>
+								<li	class="button_user">
+									<a class="button" th:href="@{/producto/carrito}">&#128722;</a> 
+								</li>
 								<li class="button_user" th:if="${session.usuario != null}">
 									<a class="button" th:href="@{/usuario/cerrarSesion/}">Cerrar Sesion</a>
 								</li>

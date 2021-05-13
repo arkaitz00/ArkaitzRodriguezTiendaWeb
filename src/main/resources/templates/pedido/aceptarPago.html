@@ -31,8 +31,24 @@ tr {
 		<div class="card border-light mb-3" style="margin-left: 33%; margin-top: 8%;">
 		  <div class="card-header bg-transparent border-dark">Está apunto de acabar el proceso de pago</div>
 		  <div class="card-body text-dark">
-		    <h5 class="card-title">Proceso de pago</h5>		    
+		    <h5 class="card-title">Proceso de pago: <span th:text="${session.metodoPago}"></span></h5>		    
 		  </div>
+		  <span th:if="${session.metodoPago == 'Paypal'}">
+			  <p class="card-text">
+		  		 <form method="post" th:action="@{/compra/pagoAceptado}">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Correo</label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Escribe correo">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Contraseña</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Escribe contraseña">
+				  </div>
+				  <button type="submit" class="btn btn-dark">Iniciar Sesion</button>
+				</form>
+			  </p>
+		  </span>
+		  <p>Cantidad a pagar <span th:text="${session.precioTotal}+'€'"></span></p>
 		</div>
 	</div>
 	<div th:insert="@{composicion/footer.html}"></div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div th:insert="@{/composicion/header.html}"></div>
+	 <main style="margin-top:8%; text-align: center;" role="main" class="inner cover">
+        <h1 class="cover-heading">Pago confirmado</h1>
+        <p class="lead"><a th:href="@{/producto/inicio}" class="btn btn-lg btn-secondary">Continuar</a></p>
+      </main>	
+	<div th:insert="@{composicion/footer.html}"></div>
+</body>

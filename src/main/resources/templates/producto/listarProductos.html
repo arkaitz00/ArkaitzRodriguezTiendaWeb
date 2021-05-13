@@ -27,9 +27,19 @@ tr {
 </head>
 <body>
 	<div th:insert="@{/composicion/header.html}"></div>
-	<div class="Aside"></div>
+	<div class="Aside" style="margin-top: 6%; width: 10%; margin-left: 40%;">
+	<form method="get" th:action="@{/producto/listaProductos}" th:object="${listadoCategorias}">
+	    	<select class="form-select" name="categorias">
+	    		<option value="0">Todos</option>	
+	    		<span th:each="categoria : ${listadoCategorias}">
+			 		<option th:value="${categoria.id}" th:text="${categoria.nombre}"></option>					 		
+			  	</span>
+			</select>
+			<button type="sumbit" class="btn btn-dark" style="margin-top: 5%;">Filtrar</button>
+    	</form>
+	</div>
 	<div class="Section"
-		style="width: 100%; margin-top:8%; display: inline-flex; flex-wrap: wrap;">
+		style="width: 100%; margin-top: 2%; display: inline-flex; flex-wrap: wrap;">
 		<table style="text-align: center; width: 100%;">
 			<tr style="width: 25%;" th:each="producto : ${listaProductos}">
 				<div class="card" style="width: 18rem;">

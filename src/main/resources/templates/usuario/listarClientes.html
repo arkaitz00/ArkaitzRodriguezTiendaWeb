@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+	tr{
+		margin-left: 1%;
+	}
+</style>
+</head>
+<body>
+	<div class="grid-container">
+	 	<div class="Nav" th:insert="@{/composicion/header.html}"></div>
+	  	<div class="Aside"></div>
+	  	<div class="Section" style="margin-top:8%; padding-top: 2%;">
+	  		<span th:if="${tamanyo != 0}">
+			  	<table class="table table-striped" style="text-align: center;">
+				  <thead>
+				   <tr>
+			  			<th>Correo</th>
+			  			<th>Nombre</th>
+			  			<th>Primer apellido</th>
+			  			<th>Segundo apellido</th>
+			  			<th>Direccion</th>
+			  			<th>Localidad</th>
+			  			<th>Provincia</th>
+			  			<th>Telefono</th>
+			  			<th>Dni</th>
+			  			<th>Editar</th>
+			  			<th>Eliminar</th>
+			  		</tr>
+				  </thead>
+				  <tbody>
+				   	<tr th:each="usuario : ${session.listaClientes}" >
+			  			<td th:text="${usuario.email}"></td>
+			  			<td th:text="${usuario.nombre}"></td>
+			  			<td th:text="${usuario.apellido1}"></td>
+			  			<td th:text="${usuario.apellido2}"></td>
+			  			<td th:text="${usuario.direccion}"></td>
+			  			<td th:text="${usuario.localidad}"></td>
+			  			<td th:text="${usuario.provincia}"></td>
+			  			<td th:text="${usuario.telefono}"></td>
+			  			<td th:text="${usuario.dni}"></td>
+			  			<td>&#9999;</td>
+			  			<td>&#10060;</td>
+			  		</tr>
+				  </tbody>
+				</table>
+			</span>
+			<span th:if="${tamanyo == 0}">
+				<h5>No hay clientes</h5>
+			</span>
+	  	</div>
+	  	<div class="Article"></div>
+	  	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+	</div>
+</body>
+</html>

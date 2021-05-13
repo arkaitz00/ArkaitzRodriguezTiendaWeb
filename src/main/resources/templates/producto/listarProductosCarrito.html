@@ -45,7 +45,7 @@ tr {
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="producto : ${session.carrito}">
+				<tr th:each="producto : ${session.listaCarrito}">
 					<th scope="row"></th>
 					<td><h6 th:text="${producto.nombre}"></h6></td>
 					<td th:text="${producto.descripcion}"></td>

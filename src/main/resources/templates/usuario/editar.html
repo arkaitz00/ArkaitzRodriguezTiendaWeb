@@ -113,9 +113,12 @@ margin-left: 4px;
 			<h3>Editar Perfil</h3>
 		</div>
 		<div class="card-body">
-			<form id="registro" method="post" th:action="@{/usuario/editarPerfil}" th:object="${usuario}">
+			<form id="registro" method="get" th:action="@{/usuario/editarPerfil}" th:object="${usuario}">
 				<div class="input-group form-group">
-					<input type="hidden" th:field="*{id}">
+					<input name="id" type="hidden" th:field="*{id}">
+				</div>	
+				<div class="input-group form-group">
+					<input name="idRol" type="hidden" th:field="*{idRol}">
 				</div>	
 				<div class="input-group form-group">
 					<div class="input-group-prepend">
@@ -123,6 +126,9 @@ margin-left: 4px;
 					</div>
 					<input id="email" type="email" class="form-control" placeholder="Email" name="email" th:field="*{email}" onblur="validarCampos(this.id)" required>
 				</div>
+				<div class="input-group form-group">
+					<input name="clave" type="hidden" th:field="*{clave}">
+				</div>	
 				<div class="input-group form-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">&#128100;</span>

@@ -57,15 +57,26 @@
                     <li class="">
                         <a href="/">Inicio</a>
                     </li>
-                    <li>
+                    <li th:if="${session.usuario == null}">
+                        <a th:href="@{producto/inicio}">Productos</a>
+                    </li>
+                    <li th:if="${session.usuario != null}">
                         <a th:href="@{producto/listaProductos}">Productos</a>
                     </li>
                     <span th:if="${session.usuario != null}">
-                    	<span th:if="${session.usuario.idRol==1}">
+                    	<span th:if="${session.usuario.idRol==2 or session.usuario.idRol==1}">
+	                    	<li>		                    
+		                    	<a th:href="@{usuario/listarProductos}">Gestionar productos</a>
+		                    </li>
 		                    <li>		                    
-		                    	<a th:href="@{usuario/listarUsuarios}">Lista Usuarios</a>
+		                    	<a th:href="@{usuario/listarClientes}">Gestionar clientes</a>
 		                    </li>
 	                    </span>
+                    	<span th:if="${session.usuario.idRol==1}">		                    
+		                    <li>		                    
+		                    	<a th:href="@{usuario/listarEmpleados}">Gestionar empleados</a>
+		                    </li>
+	                    </span>	                    
 	                    <li>
 	                    	<a class="button" th:href="@{/usuario/cerrarSesion}">Cerrar Sesion</a>
 	                    </li>

@@ -18,6 +18,10 @@ public class ProductoService {
 		return pr.findById(id);
 	}
 	
+	public List<Productos> listadoCategoria(int id){
+		return pr.listarProductosCategoria(id);
+	}
+	
 	public List<Productos> listado(){
 		List<Productos> listado = pr.listarProductos();
 		return listado;

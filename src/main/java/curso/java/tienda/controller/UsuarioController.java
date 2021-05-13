@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import main.java.curso.java.tienda.model.Productos;
 import main.java.curso.java.tienda.model.Usuarios;
+import main.java.curso.java.tienda.service.ProductoService;
 import main.java.curso.java.tienda.service.UsuariosService;
 import main.java.curso.java.tienda.utils.Cifrado;
 import main.java.curso.java.tienda.utils.MetodosUtiles;
@@ -27,6 +30,9 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuariosService us;
+	
+	@Autowired
+	ProductoService ps;
 	
 	@GetMapping("/alta")
 	public String alta(Model modelo){
@@ -81,44 +87,65 @@ public class UsuarioController {
 		return "/usuario/registro";
 	}
 	
-	@GetMapping("/editar")
-	public String editar(HttpSession session, Model modelo){
-		
- 		Usuarios usuario = (Usuarios) session.getAttribute("usuario");
- 		usuario = us.devolverUsuarioEmail(usuario.getEmail());
+	@GetMapping("/editar/{id}")
+	public String editarID(@PathVariable("id") int id, HttpSession session, Model modelo){
+ 		Usuarios usuario = us.devolverUsuarioId(id);
 
 		modelo.addAttribute("usuario", usuario);
-		return "/usuario/editar";
+		return "usuario/editar";
 	}
 	
-	@PostMapping("/editarPerfil")
+	@GetMapping("/editarPerfil")
 	public String editarPerfil(@ModelAttribute Usuarios usuario) {
 		
 		us.editarUsuario(usuario);
 		return "redirect:/usuario/bienvenido";
 	}
 	
+	@GetMapping("/eliminar/{id}")
+	public String editar(@PathVariable("id") int id, HttpSession session, Model modelo){
+		Usuarios usuario = us.devolverUsuarioId(id);
+		us.borrarUsuario(usuario.getDni());
+		return "/usuario/editar";
+	}
+	
 	@GetMapping("/bienvenido")
 	public String bienvenido(Model modelo, HttpSession session) {
-		//if(session.)
+		
 		Usuarios u = (Usuarios) session.getAttribute("usuario");
 		if(u != null) {
 		
 			Usuarios usuario = us.devolverUsuarioEmail(u.getEmail());
 			modelo.addAttribute("usuario", usuario);
 			
-			return "composicion/bienvenido";
+			return "redirect:/";
 		
 		}else {
 			return "redirect:/";
 		}
 	}
 	
-	@GetMapping("/listarUsuarios")
-	public String listarUsuarios(HttpSession session){
-		List<Usuarios> lista = us.listadoUsuarios();
-		session.setAttribute("listaUsuarios", lista);
-		return "/usuario/listarUsuarios";
+	@GetMapping("/listarProductos")
+	public String listarProductos(HttpSession session){
+		List<Productos> listaProductos = ps.listado();
+		session.setAttribute("listaProductos", listaProductos);
+		return "/usuario/listarProductos";
+	}
+	
+	@GetMapping("/listarClientes")
+	public String listarClientes(HttpSession session){
+		List<Usuarios> listaClientes = us.listarRol(3);
+		session.setAttribute("listaClientes", listaClientes);
+		return "/usuario/listarClientes";
+	}
+	
+	@GetMapping("/listarEmpleados")
+	public String listarEmpleados(Model modelo, HttpSession session){
+		List<Usuarios> listaEmpleados = us.listarRol(2);
+		int tamanyo = listaEmpleados.size();
+		modelo.addAttribute("tamanyo", tamanyo);
+		session.setAttribute("listaEmpleados", listaEmpleados);
+		return "/usuario/listarEmpleados";
 	}
 	
 	@GetMapping("/cerrarSesion")

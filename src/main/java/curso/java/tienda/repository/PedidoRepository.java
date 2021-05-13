@@ -7,5 +7,4 @@ import main.java.curso.java.tienda.model.Pedidos;
 
 public interface PedidoRepository extends JpaRepository<Pedidos, Integer>  {
 	Pedidos findById(int id);
-	
 }
