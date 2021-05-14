@@ -45,7 +45,6 @@ function validarCampos(idInput) {
 				inp.style.color = "white";
 				inp.style.backgroundColor = "green";
 			}else{
-				correcto = false;
 				inp.style.color = "black";
 				inp.style.backgroundColor = "orange";
 				alert("El apellido debe de empezar por mayuscula y debe tener entre 4 caracteres y 15, pero no es obligatorio introducirlo");
@@ -57,7 +56,6 @@ function validarCampos(idInput) {
 				inp.style.color = "white";
 				inp.style.backgroundColor = "green";
 			}else{
-				correcto = false;
 				inp.style.color = "black";
 				inp.style.backgroundColor = "orange";
 				alert("La direccion puede contener como minimi 1 caracter y como maximo 255 caracteres, no es obligatorio");
@@ -69,7 +67,6 @@ function validarCampos(idInput) {
 				inp.style.color = "white";
 				inp.style.backgroundColor = "green";
 			}else{
-				correcto = false;
 				inp.style.color = "black";
 				inp.style.backgroundColor = "orange";
 				alert("El telefono contiene 9 numeros, no es obligatorio");

@@ -93,7 +93,6 @@ public class ProductoController {
 		List<Productos> listaCarrito = (List<Productos>) session.getAttribute("listaCarrito");
 		Productos producto = ps.buscarPorId(id);
 		ps.borrarElementoCarrito(listaCarrito, id);
-		double iva = (double) session.getAttribute("iva");
 		if(listaCarrito.size() == 0) {
 			session.setAttribute("precioTotal", 0.0);
 		}else {

@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import main.java.curso.java.tienda.model.Productos;
+import main.java.curso.java.tienda.model.Provincias;
 import main.java.curso.java.tienda.model.Usuarios;
 import main.java.curso.java.tienda.service.ProductoService;
 import main.java.curso.java.tienda.service.UsuariosService;
 import main.java.curso.java.tienda.utils.Cifrado;
+import main.java.curso.java.tienda.utils.DatosJson;
 import main.java.curso.java.tienda.utils.MetodosUtiles;
 
 
@@ -58,8 +61,10 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/registro")
-	public String registro(Model modelo){
+	public String registro(String nombre, Model modelo){
 		modelo.addAttribute("usuario", new Usuarios());
+		List<String> listadoProvincias = DatosJson.obtenerProvincias();
+		modelo.addAttribute("listadoProvincias", listadoProvincias);
 		return "/usuario/registro";
 	}
 	
@@ -123,10 +128,11 @@ public class UsuarioController {
 		Usuarios u = us.devolverUsuarioId(id);
 		Productos p = ps.buscarPorId(id);
 		if(u != null) {
-			us.borrarUsuario(id);
-			if(u.getId()==2) {
+			if(u.getIdRol()==2) {
+				us.borrarUsuario(id);
 				return "redirect:/usuario/listarEmpleados";
 			}else {
+				us.borrarUsuario(id);
 				return "redirect:/usuario/listarClientes";
 			}
 		}else {
@@ -176,6 +182,37 @@ public class UsuarioController {
 		modelo.addAttribute("tamanyo", tamanyoEmpleados);
 		session.setAttribute("listaEmpleados", listaEmpleados);
 		return "/usuario/listarEmpleados";
+	}	
+		
+	@GetMapping("/crearEmpleado")
+	public String crearEmpleado(Model modelo, HttpSession session){
+		modelo.addAttribute("usuario", new Usuarios());
+		List<String> listadoProvincias = DatosJson.obtenerProvincias();
+		modelo.addAttribute("listadoProvincias", listadoProvincias);
+		return "/usuario/registro";
+	}
+	
+	@GetMapping("/crearEmpleadoRegistro")
+	public String crearEmpleados(HttpServletRequest request, Model modelo,  @ModelAttribute Usuarios usuario){
+		
+		String email = request.getParameter("email");
+		String nombre = request.getParameter("nombre");
+		String password = request.getParameter("clave");
+		String apellido1 = request.getParameter("apellido1");
+		String apellido2 = request.getParameter("apellido2");
+		String direccion = request.getParameter("direccion");
+		String municipio = request.getParameter("municipio");
+		String provincia = request.getParameter("provincia");
+		String telefono = request.getParameter("telefono");
+		String dni = request.getParameter("dni");
+		
+		String cifrado = Cifrado.cifrar(password);
+		usuario = us.crearUsuario(2, email, cifrado, nombre, apellido1, apellido2, direccion, municipio, provincia, telefono, dni);
+		if(usuario != null) {
+			return "redirect:/usuario/listarEmpleados";
+		}
+		modelo.addAttribute("usuario", new Usuarios());
+		return "/usuario/registro";
 	}
 	
 	@GetMapping("/cerrarSesion")

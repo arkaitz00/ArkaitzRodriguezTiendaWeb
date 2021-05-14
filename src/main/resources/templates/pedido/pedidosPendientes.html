@@ -54,6 +54,16 @@ tr {
 		  				<td><a th:href="@{/compra/pendienteEnvioPedido/}+${pedido.id}">Enviar pedido</a></td>
 		  			</span>
 		  		</tr>
+		  		<span th:if="${session.usuario.idRol == 1}">
+			  		<tr th:each="pedido : ${pedidosEnviados}" >
+			  			<td th:text="${pedido.fecha}"></td>
+			  			<td th:text="${pedido.metodoPago}"></td>
+			  			<td th:text="${pedido.estado}"></td>
+			  			<td th:text="${pedido.total}"></td>
+			  			<td><a th:href="@{/compra/pendienteCanceloPedido/}+${pedido.id}">Dar de baja pedido</a></td>
+			  			<td><a th:href="@{/compra/pendienteEnvioPedido/}+${pedido.id}">Enviar pedido</a></td>
+			  		</tr>
+		  		</span>
 			  </tbody>
 			</table>
 		</span>

@@ -104,6 +104,8 @@ public class PedidoController {
 	@GetMapping("/pedidosPendientes")
 	public String cancelarPedido(Model modelo) {
 		List<Pedidos> pedidosPendientes = ps.pedidosPendientesCancelo();
+		List<Pedidos> pedidosEnviados = ps.pedidosPendientesEnvio();
+		modelo.addAttribute("pedidosEnviados", pedidosEnviados);
 		modelo.addAttribute("pedidosPendientes", pedidosPendientes);
 		return "pedido/pedidosPendientes";
 	}

@@ -14,7 +14,8 @@
 	<div class="grid-container">
 	 	<div class="Nav" th:insert="@{/composicion/header.html}"></div>
 	  	<div class="Aside"></div>
-	  	<div class="Section" style="margin-top:8%; padding-top: 2%;">
+	  	<div class="Section" style="margin-top:7%; padding-top: 2%;">
+	  		<button type="button" class="btn btn-dark" style="margin-left: 45%; margin-bottom: 1%;"><a th:href="@{/usuario/crearEmpleado}">Crear Empleado</a></button>
 	  		<span th:if="${tamanyo != 0}">
 			  	<table class="table table-striped" style="text-align: center;">
 				  <thead>

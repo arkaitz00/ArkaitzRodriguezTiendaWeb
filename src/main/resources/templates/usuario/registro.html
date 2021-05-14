@@ -119,7 +119,7 @@ margin-left: 4px;
 				<h3>Registro</h3>
 			</div>
 			<div class="card-body">
-				<form id="registro" method="post" th:action="@{/usuario/registroUsuario}" th:object="${usuario}">
+				<form id="registro" method="get" th:action="@{/usuario/crearEmpleadoRegistro}" th:object="${usuario}">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128231;</span>
@@ -157,24 +157,26 @@ margin-left: 4px;
 						</div>
 						<input id="direccion" type="text" class="form-control" placeholder="Direccion" name="direccion" th:field="*{direccion}" onblur="validarCampos(this.id)">
 					</div>
+					
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#127984;</span>
 						</div>
-						<select id="provincias"  th:field="*{provincia}" class="form-select" aria-label="Default select example" onchange="filtrarMunicipios()">
-							<option value="" selected>Elige una provincia...</option>							
-							<option th:each="provincia : ${provincias}" th:value="${provincia}" th:text="${provincia}"></option>
-								
+						<select id="provincias" name="provincias"  th:field="*{provincia}" class="form-select" aria-label="Default select example">
+							<option th:each="provincia : ${listadoProvincias}" th:value="${provincia}" th:text="${provincia}"></option>								
 						</select>
 					</div>
+					<!-- 
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#128725;</span>
 						</div>
 						<select id="municipios" class="form-select" aria-label="Default select example" style="width: 61.8%">
 							<option value="" selected>Elige un munipio...</option>
+							<option th:each="municipio : ${listadoMunicipios}" th:value="${municipio}" th:text="${municipio}"></option>
 						</select>
 					</div>
+					 -->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">&#9742;</span>
