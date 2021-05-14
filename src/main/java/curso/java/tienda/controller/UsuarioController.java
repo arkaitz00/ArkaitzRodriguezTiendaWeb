@@ -68,7 +68,7 @@ public class UsuarioController {
 		return "/usuario/registro";
 	}
 	
-	@PostMapping("/registroUsuario")
+	@GetMapping("/registroUsuario")
 	public String registroUsuario(HttpServletRequest request, HttpSession session, Model modelo,  @ModelAttribute Usuarios usuario) {
 		
 		String email = request.getParameter("email");
@@ -189,7 +189,7 @@ public class UsuarioController {
 		modelo.addAttribute("usuario", new Usuarios());
 		List<String> listadoProvincias = DatosJson.obtenerProvincias();
 		modelo.addAttribute("listadoProvincias", listadoProvincias);
-		return "/usuario/registro";
+		return "/usuario/registroEmpleado";
 	}
 	
 	@GetMapping("/crearEmpleadoRegistro")
