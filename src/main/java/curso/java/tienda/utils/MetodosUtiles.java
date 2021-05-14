@@ -80,5 +80,30 @@ public class MetodosUtiles {
 		
 		return lista;
 	}
+	
+	public static String nombreProducto(int idProducto){
+		String nombreProducto = "";
+		switch(idProducto){
+			case 1 :
+				nombreProducto = "Radeon RX 6800";
+			break;
+			case 2 :
+				nombreProducto = "Gigabyte RTX 2060";
+			break;
+			case 3 :
+				nombreProducto = "Intel Core i9-11900K";
+			break;
+			case 4 :
+				nombreProducto = "Asus Rog Strix SCAR 17";
+			break;
+			case 5 :
+				nombreProducto = "PcCom Silver";
+			break;
+			case 6 :
+				nombreProducto = "Prueba";
+			break;
+		}
+		return nombreProducto;
+	}
 }
 

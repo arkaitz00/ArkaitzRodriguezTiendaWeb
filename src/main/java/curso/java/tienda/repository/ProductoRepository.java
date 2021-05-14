@@ -11,6 +11,8 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
 	Productos findById(int id);
 
 	List<Productos> findAll();
+	
+	Productos deleteById(int id);
 
 	@Query("select p from Productos p")
 	List<Productos> listarProductos();

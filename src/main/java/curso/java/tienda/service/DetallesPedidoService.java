@@ -22,7 +22,7 @@ public class DetallesPedidoService {
 		return dpr.findAll();
 	}
 	
-	public DetallesPedido crearDetallePedido(int idPedido, int idProducto, float precioUnidad, int unidades, float impuesto, double total) {
+	public DetallesPedido crearDetallePedido(int idPedido, int idProducto, double precioUnidad, int unidades, float impuesto, double total) {
 		DetallesPedido dp = new DetallesPedido(idPedido, idProducto, precioUnidad, unidades, impuesto, total);
 		dpr.save(dp);
 		return dp;
@@ -35,5 +35,9 @@ public class DetallesPedidoService {
 		}
 		
 		logger.info("El detalle de pedido no existe, y no se ha podido eliminar");
+	}
+	
+	public List<DetallesPedido> detallesPedido(int id){
+		return dpr.findByIdPedido(id);
 	}
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div th:insert="@{/composicion/header.html}"></div>
+	<div class="Aside" style="margin-top: 6%; width: 10%; margin-left: 40%;"></div>	
+	<div class="Section" style="width: 100%; margin-top: 2%; display: inline-flex; flex-wrap: wrap;">
+		<span th:if="${tamanyo != 0}">
+		  	<table class="table table-striped" style="text-align: center; width:100%; margin-left: 180%;">
+			  <thead>
+			   <tr>
+		  			<th>Producto</th>
+		  			<th>Precio</th>
+		  			<th>Unidades</th>
+		  			<th>Impuesto</th>
+		  			<th>Total</th>
+		  		</tr>
+			  </thead>
+			  <tbody>
+			   	<tr th:each="detalle : ${detalles}" >
+		  			<td th:text="${detalle.idProducto}"></td>
+		  			<td th:text="${detalle.precioUnidad}"></td>
+		  			<td th:text="${detalle.unidades}"></td>
+		  			<td th:text="${detalle.impuesto}"></td>
+		  			<td th:text="${detalle.total}"></td>
+		  		</tr>
+			  </tbody>
+			</table>
+		</span>
+		<span th:if="${tamanyo == 0}">
+			<h5 style="text-align:center;">No hay pedidos</h5>
+		</span>
+	</div>
+	<div class="Article"></div>
+	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+	</div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package main.java.curso.java.tienda.model;
 
+import java.sql.Timestamp;
+
 // default package
 // Generated 04-may-2021 10:46:52 by Hibernate Tools 5.2.12.Final
 
@@ -26,21 +28,21 @@ public class Productos implements java.io.Serializable {
 	private String descripcion;
 	private Double precio;
 	private Integer stock;
-	private Date fechaAlta;
-	private Date fechaBaja;
+	private Timestamp fechaAlta;
+	private Timestamp fechaBaja;
 	private Float impuesto;
 	private String imagen;
 
 	public Productos() {
 	}
 
-	public Productos(Date fechaAlta, Date fechaBaja) {
+	public Productos(Timestamp fechaAlta, Timestamp fechaBaja) {
 		this.fechaAlta = fechaAlta;
 		this.fechaBaja = fechaBaja;
 	}
 
 	public Productos(Integer idCategoria, String nombre, String descripcion, Double precio, Integer stock,
-			Date fechaAlta, Date fechaBaja, Float impuesto) {
+			Timestamp fechaAlta, Timestamp fechaBaja, Float impuesto) {
 		this.idCategoria = idCategoria;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -108,23 +110,23 @@ public class Productos implements java.io.Serializable {
 		this.stock = stock;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	@Column(name = "fecha_alta", nullable = false, length = 19)
-	public Date getFechaAlta() {
+	public Timestamp getFechaAlta() {
 		return this.fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(Timestamp fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	@Column(name = "fecha_baja", nullable = true)
-	public Date getFechaBaja() {
+	public Timestamp getFechaBaja() {
 		return this.fechaBaja;
 	}
 
-	public void setFechaBaja(Date fechaBaja) {
+	public void setFechaBaja(Timestamp fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
 

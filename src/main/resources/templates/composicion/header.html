@@ -45,6 +45,19 @@ body{
 										Bienvenido <span th:text="${session.usuario.nombre}"></span>
 									</span>
 								</li>
+								<li class="button_user" th:if="${session.usuario.idRol == 2}">
+									<a class="button" th:href="@{/usuario/verPerfil/}+${session.usuario.id}">Ver perfil</a> 
+								</li>
+								<li class="button_user" th:if="${session.usuario.idRol == 3}">
+									<a class="button" th:href="@{/usuario/verPerfil/}+${session.usuario.id}">Ver perfil</a> 
+									<a class="button" th:href="@{/compra/misPedidos}">Mis pedidos</a> 
+								</li>
+								<li class="button_user" th:if="${session.usuario.idRol == 1}">
+									<a class="button" th:href="@{/compra/pedidosPendientes}">Pedidos pendientes</a> 
+								</li>
+								<li class="button_user" th:if="${session.usuario.idRol == 2}">
+									<a class="button" th:href="@{/compra/pedidosEnEnvio}">Pedidos pendientes</a> 
+								</li>
 								<li	class="button_user">
 									<a class="button" th:href="@{/producto/carrito}">&#128722;</a> 
 								</li>

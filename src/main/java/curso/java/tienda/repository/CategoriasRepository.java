@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import main.java.curso.java.tienda.model.Categorias;
 
 public interface CategoriasRepository extends JpaRepository<Categorias, Integer> {
-	
+
 	List<Categorias> findAll();
-	
+
 	@Query("select c from Categorias c")
 	List<Categorias> listarCategorias();
 }

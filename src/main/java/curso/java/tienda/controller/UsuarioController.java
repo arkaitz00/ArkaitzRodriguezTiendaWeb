@@ -83,30 +83,56 @@ public class UsuarioController {
 			session.setAttribute("usuario", usuario);
 			return "redirect:/usuario/bienvenido";
 		}
-		modelo.addAttribute("usuario", usuario);
+		modelo.addAttribute("usuario", new Usuarios());
 		return "/usuario/registro";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String editarID(@PathVariable("id") int id, HttpSession session, Model modelo){
  		Usuarios usuario = us.devolverUsuarioId(id);
-
-		modelo.addAttribute("usuario", usuario);
-		return "usuario/editar";
+ 		Productos producto = ps.buscarPorId(id);
+ 		if(usuario != null) {
+			modelo.addAttribute("usuario", usuario);
+			return "usuario/editar";
+ 		}else if(producto != null){
+ 			modelo.addAttribute("producto", producto);
+ 			return "producto/editar";
+ 		}
+ 		return "index";
 	}
 	
 	@GetMapping("/editarPerfil")
-	public String editarPerfil(@ModelAttribute Usuarios usuario) {
-		
+	public String editarPerfil(@ModelAttribute Usuarios usuario) {	
 		us.editarUsuario(usuario);
-		return "redirect:/usuario/bienvenido";
+		if(usuario.getId()==2) {
+			return "redirect:/usuario/listarEmpleados";
+		}else {
+			return "redirect:/usuario/listarClientes";
+		}
+	}
+	
+	@GetMapping("/verPerfil/{id}")
+	public String verPerfil(@PathVariable("id") int id, Model modelo){
+ 		Usuarios usuario = us.devolverUsuarioId(id);
+		modelo.addAttribute("usuario", usuario);
+		return "usuario/perfil";
 	}
 	
 	@GetMapping("/eliminar/{id}")
 	public String editar(@PathVariable("id") int id, HttpSession session, Model modelo){
-		Usuarios usuario = us.devolverUsuarioId(id);
-		us.borrarUsuario(usuario.getDni());
-		return "/usuario/editar";
+		Usuarios u = us.devolverUsuarioId(id);
+		Productos p = ps.buscarPorId(id);
+		if(u != null) {
+			us.borrarUsuario(id);
+			if(u.getId()==2) {
+				return "redirect:/usuario/listarEmpleados";
+			}else {
+				return "redirect:/usuario/listarClientes";
+			}
+		}else {
+			ps.borrarProducto(id);
+			return "redirect:/usuario/listarProductos";
+		}
 	}
 	
 	@GetMapping("/bienvenido")
@@ -126,15 +152,19 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/listarProductos")
-	public String listarProductos(HttpSession session){
+	public String listarProductos(Model modelo, HttpSession session){
 		List<Productos> listaProductos = ps.listado();
+		int tamanyoProductos = listaProductos.size();
+		modelo.addAttribute("tamanyo", tamanyoProductos);
 		session.setAttribute("listaProductos", listaProductos);
 		return "/usuario/listarProductos";
 	}
 	
 	@GetMapping("/listarClientes")
-	public String listarClientes(HttpSession session){
+	public String listarClientes(Model modelo, HttpSession session){
 		List<Usuarios> listaClientes = us.listarRol(3);
+		int tamanyoClientes = listaClientes.size();
+		modelo.addAttribute("tamanyo", tamanyoClientes);
 		session.setAttribute("listaClientes", listaClientes);
 		return "/usuario/listarClientes";
 	}
@@ -142,8 +172,8 @@ public class UsuarioController {
 	@GetMapping("/listarEmpleados")
 	public String listarEmpleados(Model modelo, HttpSession session){
 		List<Usuarios> listaEmpleados = us.listarRol(2);
-		int tamanyo = listaEmpleados.size();
-		modelo.addAttribute("tamanyo", tamanyo);
+		int tamanyoEmpleados = listaEmpleados.size();
+		modelo.addAttribute("tamanyo", tamanyoEmpleados);
 		session.setAttribute("listaEmpleados", listaEmpleados);
 		return "/usuario/listarEmpleados";
 	}

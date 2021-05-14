@@ -29,7 +29,9 @@
 			  			<th>Telefono</th>
 			  			<th>Dni</th>
 			  			<th>Editar</th>
-			  			<th>Eliminar</th>
+			  			<span th:if="${session.usuario.idRol==1}">
+			  				<th>Eliminar</th>
+			  			</span>
 			  		</tr>
 				  </thead>
 				  <tbody>
@@ -43,14 +45,16 @@
 			  			<td th:text="${usuario.provincia}"></td>
 			  			<td th:text="${usuario.telefono}"></td>
 			  			<td th:text="${usuario.dni}"></td>
-			  			<td>&#9999;</td>
-			  			<td>&#10060;</td>
+			  			<td><a th:href="@{editar/}+${usuario.id}">&#9999;</a></td>
+			  			<span th:if="${session.usuario.idRol==1}">
+			  				<td><a th:href="@{eliminar/}+${usuario.id}">&#10060;</a></td>
+			  			</span>
 			  		</tr>
 				  </tbody>
 				</table>
 			</span>
 			<span th:if="${tamanyo == 0}">
-				<h5>No hay clientes</h5>
+				<h5 style="text-align:center;">No hay clientes</h5>
 			</span>
 	  	</div>
 	  	<div class="Article"></div>

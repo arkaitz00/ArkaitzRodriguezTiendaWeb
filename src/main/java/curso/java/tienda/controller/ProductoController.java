@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,10 +47,10 @@ public class ProductoController {
 	}
 
 	@GetMapping("/listaProductos")
-	public String listaProductos(@RequestParam(name="categorias", required = false) int id, Model modelo, HttpSession session) {
+	public String listaProductos(@RequestParam(name="categorias", required = false, defaultValue = "0") int id, Model modelo, HttpSession session) {
 		List<Categorias> categorias = cs.listarCategorias();
 		modelo.addAttribute("listadoCategorias",categorias);
-		List<Productos> listaProductos;
+		List<Productos> listaProductos = ps.listado();
 		if(id==0) {
 			listaProductos = ps.listado();
 		}else {
@@ -70,9 +71,8 @@ public class ProductoController {
 	public String verCarritoId(@PathVariable("id") int id, HttpSession session) {
 		List<Productos> listaCarrito = (List<Productos>) session.getAttribute("listaCarrito");
 		Productos producto = ps.buscarPorId(id);
-
 		listaCarrito.add(producto);
-		if (listaCarrito.size() == 1) {
+		if (listaCarrito.size() == 1) {								
 			totalPrecio = producto.getPrecio();
 		} else {
 			totalPrecio += producto.getPrecio();
@@ -93,8 +93,13 @@ public class ProductoController {
 		List<Productos> listaCarrito = (List<Productos>) session.getAttribute("listaCarrito");
 		Productos producto = ps.buscarPorId(id);
 		ps.borrarElementoCarrito(listaCarrito, id);
+		double iva = (double) session.getAttribute("iva");
+		if(listaCarrito.size() == 0) {
+			session.setAttribute("precioTotal", 0.0);
+		}else {
+			session.setAttribute("precioTotal", totalPrecio - producto.getPrecio());
+		}
 		session.setAttribute("listaCarrito", listaCarrito);
-		session.setAttribute("precioTotal", totalPrecio - producto.getPrecio());
 		return "redirect:/producto/carrito";
 	}
 
@@ -117,6 +122,12 @@ public class ProductoController {
 		Productos producto = ps.buscarPorId(id);
 		session.setAttribute("producto", producto);
 		return "redirect:/producto/detalleProducto";
+	}
+	
+	@PostMapping("/editarProducto")
+	public String editarProduto(@ModelAttribute Productos producto){
+		ps.editarProducto(producto);
+		return "redirect:/usuario/listarProductos";
 	}
 
 	@GetMapping("/carrito")

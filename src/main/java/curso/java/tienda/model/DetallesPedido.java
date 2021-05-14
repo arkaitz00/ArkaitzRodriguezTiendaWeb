@@ -17,19 +17,19 @@ import javax.persistence.Table;
 @Table(name = "detalles_pedido", catalog = "tienda_arkaitz_rodriguez_martinez")
 public class DetallesPedido implements java.io.Serializable {
 
-	private Integer id;
-	private Integer idPedido;
-	private Integer idProducto;
-	private Float precioUnidad;
-	private Integer unidades;
-	private Float impuesto;
-	private Double total;
+	private int id;
+	private int idPedido;
+	private int idProducto;
+	private double precioUnidad;
+	private int unidades;
+	private float impuesto;
+	private double total;
 
 	public DetallesPedido() {
 	}
 
-	public DetallesPedido(Integer idPedido, Integer idProducto, Float precioUnidad, Integer unidades, Float impuesto,
-			Double total) {
+	public DetallesPedido(int idPedido, int idProducto, double precioUnidad, int unidades, float impuesto,
+			double total) {
 		this.idPedido = idPedido;
 		this.idProducto = idProducto;
 		this.precioUnidad = precioUnidad;
@@ -69,11 +69,11 @@ public class DetallesPedido implements java.io.Serializable {
 	}
 
 	@Column(name = "precio_unidad", precision = 12, scale = 0)
-	public Float getPrecioUnidad() {
+	public Double getPrecioUnidad() {
 		return this.precioUnidad;
 	}
 
-	public void setPrecioUnidad(Float precioUnidad) {
+	public void setPrecioUnidad(Double precioUnidad) {
 		this.precioUnidad = precioUnidad;
 	}
 

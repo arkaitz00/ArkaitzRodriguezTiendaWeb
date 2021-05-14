@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tienda Arkaitz</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+tr {
+	margin-left: 1%;
+}
+
+.full {
+	margin-left: 2%;
+}
+
+.card {
+	margin-left: 13%;
+	margin-top: 1%;
+}
+</style>
+</head>
+<body>
+	<div th:insert="@{/composicion/header.html}"></div>
+	<div class="Aside" style="margin-top: 6%; width: 10%; margin-left: 40%;"></div>	
+	<div class="Section" style="width: 100%; margin-top: 2%; display: inline-flex; flex-wrap: wrap;">
+		<span th:if="${tamanyo != 0}">
+		  	<table class="table table-striped" style="text-align: center; width:100%; margin-left: 80%;">
+			  <thead>
+			   <tr>
+		  			<th>Fecha</th>
+		  			<th>Metodo de pago</th>
+		  			<th>Estado</th>
+		  			<th>Total</th>
+		  			<th></th>
+		  			<th></th>
+		  		</tr>
+			  </thead>
+			  <tbody>
+			   	<tr th:each="pedido : ${pedidosPendientes}" >
+		  			<td th:text="${pedido.fecha}"></td>
+		  			<td th:text="${pedido.metodoPago}"></td>
+		  			<td th:text="${pedido.estado}"></td>
+		  			<td th:text="${pedido.total}"></td>
+		  			<span th:if="${session.usuario.idRol==1}">
+		  				<td><a th:href="@{/compra/pendienteCanceloPedido/}+${pedido.id}">Dar de baja pedido</a></td>
+		  			</span>
+		  			<span>
+		  				<td><a th:href="@{/compra/pendienteEnvioPedido/}+${pedido.id}">Enviar pedido</a></td>
+		  			</span>
+		  		</tr>
+			  </tbody>
+			</table>
+		</span>
+		<span th:if="${tamanyo == 0}">
+			<h5 style="text-align:center;">No hay pedidos</h5>
+		</span>
+	</div>
+	<div class="Article"></div>
+	<div class="Footer" th:insert="@{/composicion/footer.html}"></div>
+	</div>
+</body>
+</html>

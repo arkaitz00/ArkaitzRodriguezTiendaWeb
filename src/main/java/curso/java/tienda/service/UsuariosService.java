@@ -69,7 +69,12 @@ public class UsuariosService {
 		return null;
 	}
 
-	public void borrarUsuario(String dni) {
+	public void borrarUsuario(int id) {
+		ur.deleteById(id);
+		logger.info("El usuario se ha borrado");
+	}
+	
+	public void borrarUsuarioDni(String dni) {
 		if (existeUsuarioDni(dni)) {
 			ur.deleteByDni(dni);
 			logger.info("El usuario ha sido borrado correctamente");

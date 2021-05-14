@@ -18,6 +18,10 @@ public class ProductoService {
 		return pr.findById(id);
 	}
 	
+	public void editarProducto(Productos p) {
+		pr.save(p);
+	}
+	
 	public List<Productos> listadoCategoria(int id){
 		return pr.listarProductosCategoria(id);
 	}
@@ -42,5 +46,9 @@ public class ProductoService {
 			}
 		}
 		return carrito;
+	}
+	
+	public void borrarProducto(int id) {
+		pr.deleteById(id);
 	}
 }

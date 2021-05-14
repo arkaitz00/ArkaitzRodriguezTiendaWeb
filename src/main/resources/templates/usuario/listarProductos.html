@@ -39,16 +39,18 @@
 		  			<td th:text="${producto.precio}"></td>
 		  			<td th:text="${producto.stock}"></td>
 		  			<td th:text="${producto.fechaAlta}"></td>
-		  			<td th:text="${producto.fechaBaja}"></td>
+		  			<td></td>
 		  			<td th:text="${producto.impuesto}"></td>
-					<td>&#9999;</td>
-		  			<td>&#10060;</td>
+					<td><a th:href="@{editar/}+${producto.id}">&#9999;</a></td>
+		  			<span th:if="${session.usuario.idRol==1}">
+		  				<td><a th:href="@{eliminar/}+${producto.id}">&#10060;</a></td>
+		  			</span>
 	  			</tr>
 			  </tbody>
 			</table>
 		</span>
 		<span th:if="${tamanyo == 0}">
-			<h5>No hay productos</h5>
+			<h5 style="text-align:center;">No hay productos</h5>
 		</span>	  		
 	  	</div>
 	  	<div class="Article"></div>
